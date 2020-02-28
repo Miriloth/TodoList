@@ -1,10 +1,17 @@
 import {apiGet} from '../utils/APIService';
+import Link from 'next/Link'
 
 const Index = ({todos = []}) => {
   return (
     <div>
       {todos.map(todo => (
-        <div key={todo.id}>{todo.title}</div>
+        <Link
+          key={todo.id}
+          href="/todos/[id]"
+          as={`/todos/${todo.id}`}
+        >
+          <div>{todo.title}</div>
+        </Link>
       ))}
     </div>
   )
@@ -13,7 +20,7 @@ const Index = ({todos = []}) => {
 Index.getInitialProps = async function () {
   const response = await apiGet('/api/todos');
   const todos = await response.json();
-console.log(todos)
+
   return {
     todos,
   };
