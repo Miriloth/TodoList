@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -130,9 +130,11 @@ const Index = ({
 };
 
 Index.getInitialProps = async function () {
-  const response = await Object(_utils_APIService__WEBPACK_IMPORTED_MODULE_1__["apiGet"])('/todos');
+  const response = await Object(_utils_APIService__WEBPACK_IMPORTED_MODULE_1__["apiGet"])('/api/todos');
+  const todos = await response.json();
+  console.log(todos);
   return {
-    todos: response.data
+    todos
   };
 };
 
@@ -144,30 +146,30 @@ Index.getInitialProps = async function () {
 /*!*****************************!*\
   !*** ./utils/APIService.js ***!
   \*****************************/
-/*! exports provided: apiGet, apiPost, apiDelete */
+/*! exports provided: apiGet, apiPost */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apiGet", function() { return apiGet; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apiPost", function() { return apiPost; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apiDelete", function() { return apiDelete; });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "axios");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_0__);
 
-const API_BASE = 'http://localhost:3009';
+const API_BASE = 'http://localhost:3000';
 
-const apiGet = path => axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(`${API_BASE}${path}`);
+const apiGet = async path => await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_0___default()(`${API_BASE}${path}`);
 
-const apiPost = (path, body) => axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(`${API_BASE}${path}`, body);
-
-const apiDelete = (path, body) => axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(`${API_BASE}${path}`, body);
+const apiPost = (path, body) => isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_0___default()(`${API_BASE}${path}`, {
+  method: 'POST',
+  body: JSON.stringify(body)
+});
 
 
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
@@ -179,14 +181,14 @@ module.exports = __webpack_require__(/*! /Users/michal.grabowski/Documents/learn
 
 /***/ }),
 
-/***/ "axios":
-/*!************************!*\
-  !*** external "axios" ***!
-  \************************/
+/***/ "isomorphic-unfetch":
+/*!*************************************!*\
+  !*** external "isomorphic-unfetch" ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("axios");
+module.exports = require("isomorphic-unfetch");
 
 /***/ }),
 

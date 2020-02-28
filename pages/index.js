@@ -11,10 +11,11 @@ const Index = ({todos = []}) => {
 };
 
 Index.getInitialProps = async function () {
-  const response = await apiGet('/todos');
-
+  const response = await apiGet('/api/todos');
+  const todos = await response.json();
+console.log(todos)
   return {
-    todos: response.data,
+    todos,
   };
 };
 

@@ -1,13 +1,14 @@
-import axios from 'axios';
+import fetch from 'isomorphic-unfetch';
 
-const API_BASE = 'http://localhost:3009';
+const API_BASE = 'http://localhost:3000';
 
-const apiGet = (path) => axios.get(`${API_BASE}${path}`);
-const apiPost = (path, body) => axios.post(`${API_BASE}${path}`, body);
-const apiDelete = (path, body) => axios.delete(`${API_BASE}${path}`, body);
+const apiGet = async (path) => await fetch(`${API_BASE}${path}`);
+const apiPost = (path, body) => fetch(`${API_BASE}${path}`, {
+  method: 'POST',
+  body: JSON.stringify(body),
+});
 
 export {
   apiGet,
   apiPost,
-  apiDelete,
 }
